@@ -28,29 +28,45 @@ Online Store for selling groceries using a self-service method.
 
 ![homepage](./homepage.png)
 
+***
+
 ### Mobile Friendly:
 
 ![mobileFriendly](./mobileFriendly.png)
+
+***
 
 ### Cart and Products:
 * The cart can be shown or hidden
 ![cartAndProducts](./cartAndProducts.png)
 
+***
+
 ### Order Page:
 * Note that just for demonstration - only 3 orders are allowed per day.
 ![orderPage](./orderPage.png)
 
+***
+
 ### Order Completed / Receipt:
 ![orderCompleted](./orderCompleted.png)
+
+***
 
 ### Successful Customer Login:
 ![successfulCustomerLogin](./successfulCustomerLogin.png)
 
+***
+
 ### Register Step One:
 ![registerStepOne](./registerStepOne.png)
 
+***
+
 ### Register Step Two
 ![registerStepTwo](./registerStepTwo.png)
+
+***
 
 ### Admin Panel:
 ![adminPanel](./adminPanel.png)
