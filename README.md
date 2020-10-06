@@ -26,7 +26,7 @@ Online Store for selling groceries using a self-service method.
 
 ### Home Page:
 
-![homePage](./homePage.png)
+![homepage](./homepage.png)
 
 ### Mobile Friendly:
 
