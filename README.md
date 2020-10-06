@@ -63,7 +63,7 @@ Online Store for selling groceries using a self-service method.
 
 ***
 
-### Register Step Two
+### Register Step Two:
 ![registerStepTwo](./registerStepTwo.png)
 
 ***
