@@ -1,0 +1,27 @@
+section {
+  height: 100%;
+  background-color: lightcyan;
+  text-align: center;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 10% auto 10%;
+}
+
+header,
+footer {
+  grid-column: span 12;
+  min-width: 24px;
+}
+
+aside {
+  grid-column: span 2;
+}
+
+main {
+  grid-column: span 12;
+}
+
+* {
+  background-color: lightcyan;
+}

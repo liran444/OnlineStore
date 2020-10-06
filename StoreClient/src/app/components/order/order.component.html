@@ -1,0 +1,118 @@
+<div id="container mh-100">
+  <div id="container w-50 h-50 col-sm-3">
+    <div class="d-flex row ml-auto flexContainer">
+      <div class="col-sm-5 flex-grow-0 containerDiv loginDiv">
+        <router-outlet></router-outlet>
+      </div>
+
+      <div class="col-sm-1"></div>
+
+      <div class="col-sm-5 flex-grow-0 containerDiv">
+        <div class="w-50 h-50 flexDiv">
+          <div *ngIf="this.usersService.state === 'ordering'">
+            <hr />
+            <span class="orderSpanHeader">Order:</span>
+            <hr />
+
+            <form [formGroup]="orderForm" (submit)="onSubmittedAddOrder()">
+              <h3>Shipping Details:</h3>
+              <hr class="headerUnderline" />
+
+              <select
+                class="form-control"
+                id="cities"
+                formControlName="city_id"
+                [(ngModel)]="this.loggedInUser.city_id"
+              >
+                <option name="city" disabled selected value>
+                  * Select an Option
+                </option>
+                <option
+                  *ngFor="let item of this.citiesService.cities"
+                  value="{{ item.id }}"
+                  name="fieldName"
+                  ngDefaultControl
+                >
+                  {{ item.name }}
+                </option>
+              </select>
+              <br />
+              <span
+                *ngIf="form.city_id.errors?.required && form.city_id.touched"
+                >Missing City Address</span
+              ><br />
+
+              <input
+                type="text"
+                placeholder="* Street Address"
+                formControlName="street"
+                [(ngModel)]="this.loggedInUser.street"
+              /><br />
+              <span *ngIf="form.street.errors?.required && form.street.touched"
+                >Missing Street Address</span
+              >
+              <span *ngIf="form.street.errors?.pattern && form.street.touched"
+                >Invalid Street Address</span
+              ><br />
+
+              <div>
+                <input
+                  matInput
+                  class="datePickerWidth"
+                  [matDatepicker]="picker"
+                  (click)="picker.open()"
+                  (keydown)="(false)"
+                  [min]="tomorrow_date"
+                  [max]="max_date"
+                  [matDatepickerFilter]="myFilter"
+                  placeholder="* Shipping Date"
+                  formControlName="ship_date"
+                />
+                <mat-datepicker-toggle
+                  disabled="false"
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker disabled="false"></mat-datepicker>
+              </div>
+              <span
+                *ngIf="
+                  form.ship_date.errors?.required && form.ship_date.touched
+                "
+                >Missing Shipping Date</span
+              ><br />
+
+              <h3>Payments:</h3>
+              <hr class="headerUnderline" />
+
+              <input
+                type="text"
+                placeholder="* Credit Card"
+                formControlName="credit_card"
+              /><br />
+              <span
+                *ngIf="
+                  form.credit_card.errors?.required && form.credit_card.touched
+                "
+                >Missing Credit Card</span
+              >
+              <span
+                *ngIf="
+                  form.credit_card.errors?.pattern && form.credit_card.touched
+                "
+                >Invalid Credit Card</span
+              ><br />
+
+              <button
+                [disabled]="orderForm.invalid"
+                class="btn btn-primary orderButton"
+              >
+                Order
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

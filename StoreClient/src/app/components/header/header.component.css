@@ -1,0 +1,93 @@
+img {
+  height: 50px;
+}
+
+.navbar-header {
+  padding: 20px;
+}
+
+#myNavbar {
+  padding: 20px;
+  margin-top: 30px;
+}
+
+#profile {
+  margin-left: 20px;
+  padding: 20px;
+  display: inline-block;
+  color: white;
+}
+
+.float-right {
+  float: right;
+}
+
+.infoText {
+  color: lightgreen;
+}
+
+.navbarUl {
+  display: inline-flex;
+}
+
+.contactUsDiv {
+  height: 40px;
+  margin-top: 45px;
+  font-size: 16px;
+  border-bottom: 1px solid white;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+@media screen and (max-width: 480px) {
+  .navbar {
+    max-height: 160px;
+  }
+}
+
+@media (min-width: 480px) {
+  .navbar-fixed-bottom,
+  .navbar-fixed-top {
+    border-radius: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #profile {
+    display: contents;
+  }
+}
+
+@media (max-width: 680px) {
+  .contactUsDiv {
+    font-size: 14px;
+  }
+}
+
+.container-fluid {
+  max-height: 150px;
+  display: inline-flex;
+}
+
+.navbar-header {
+  padding: 24px;
+}
+
+.navbar {
+  height: 150px;
+  position: relative;
+  margin-top: -30px;
+  background-color: rgb(74, 112, 139);
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: aliceblue;
+}
+
+.activeLink {
+  font-weight: 600;
+}
+
+.text-danger {
+  color: red;
+}

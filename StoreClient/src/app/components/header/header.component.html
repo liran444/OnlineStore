@@ -1,0 +1,47 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <!-- <img src=".\assets\images\logo.png"/> -->
+      <span id="profile"
+        >Welcome {{ this.usersService.loggedInUser?.firstname }}
+        <span
+          class="text-danger"
+          *ngIf="this.usersService.loggedInUser?.user_type == 'ADMIN'"
+        >
+          - ADMIN MODE</span
+        >
+        <button
+          *ngIf="this.usersService.loggedInUser?.firstname"
+          class="form-control btn btn-danger"
+          (click)="logout()"
+        >
+          Logout
+        </button>
+      </span>
+    </div>
+    <div class="topRightCornerDiv">
+      <div class="float-right contactUsDiv">
+        <p class="infoText">
+          Contact Us: <span>{{ store.phone }} - {{ store.email }}</span>
+        </p>
+      </div>
+      <div id="myNavbar">
+        <ul class="nav navbar-nav navbar-right navbarUl">
+          <li *ngIf="!this.usersService.isLoggedIn">
+            <a routerLink="/home/login" routerLinkActive="activeLink">HOME</a>
+          </li>
+
+          <li *ngIf="this.usersService.loggedInUser?.firstname">
+            <a routerLink="/home/cart" routerLinkActive="activeLink">HOME</a>
+          </li>
+
+          <li *ngIf="this.usersService.loggedInUser?.firstname">
+            <a routerLink="/shopping/cart" routerLinkActive="activeLink"
+              >SHOP</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,113 @@
+<div id="container mh-100">
+  <div id="container w-50 h-50 col-sm-3">
+    <button
+      *ngIf="this.usersService.loggedInUser.user_type !== 'ADMIN'"
+      class="btn btn-primary cartButton fa fa-shopping-cart"
+      (click)="onMyCartButtonClicked()"
+      type="button"
+      data-toggle="collapse"
+      data-target="#collapseCart"
+      aria-expanded="false"
+      aria-controls="collapseCart"
+    >
+      {{ isMyCartDisplayed ? "Hide Cart" : "Show Cart" }}
+    </button>
+    <div class="d-flex row ml-auto flexContainer">
+      <div
+        class="col-sm-4 flex-grow-0 containerDiv collapse in"
+        id="collapseCart"
+      >
+        <router-outlet></router-outlet>
+      </div>
+
+      <div class="col-sm-12 flex-grow-0 containerDiv">
+        <hr />
+        <span class="categoriesHeaderSpan">Categories:</span>
+
+        <div class="categoriesContainer">
+          <button
+            class="btn categoryButton"
+            [value]="0"
+            (click)="onClickedSetCurrentCategory(0)"
+          >
+            All
+          </button>
+          <button
+            class="btn categoryButton"
+            *ngFor="let item of this.categoriesService.categories"
+            [value]="item.id"
+            (click)="onClickedSetCurrentCategory(item.id)"
+          >
+            {{ item.category_name }}
+          </button>
+        </div>
+        <hr />
+        <div class="col-sm-12">
+          <input
+            type="text"
+            placeholder="Search Product..."
+            class="searchInput"
+            [(ngModel)]="subText"
+          />
+        </div>
+        <div class="w-50 h-50 flexDiv">
+          <div
+            class="productContainer"
+            *ngFor="
+              let item of this.productsService.productsArray
+                | categoriesPipe: clickedCategoryID
+                | subTextPipe: subText
+            "
+          >
+            <img
+              src="http://localhost:3000/uploads/{{ item.image_file_name }}"
+              width="100"
+              height="100"
+            />
+            <p class="title">{{ item.name }}</p>
+            <p class="price">Price: {{ item.price }}</p>
+            <div *ngIf="this.usersService.loggedInUser.user_type !== 'ADMIN'">
+              <input
+                type="number"
+                class="amountOfProductsInput"
+                [max]="maxAmount"
+                [min]="minAmount"
+                value="{{ item.amount }}"
+                disabled
+              />
+              <button
+                class="plusButton btn-primary"
+                (click)="[increaseAmount(item)]"
+              >
+                <span class="glyphicon glyphicon-plus"></span>
+              </button>
+              <button
+                class="minusButton btn-primary"
+                (click)="[decreaseAmount(item)]"
+              >
+                <span class="glyphicon glyphicon-minus"></span>
+              </button>
+              <button
+                class="btn btn-primary addToCartButton"
+                (click)="[onAddItemToCartClicked(item)]"
+              >
+                Add
+              </button>
+            </div>
+            <div
+              class="editDiv"
+              *ngIf="this.usersService.loggedInUser?.user_type === 'ADMIN'"
+            >
+              <button
+                class="btn btn-primary"
+                (click)="[onEditProductClicked(item)]"
+              >
+                Edit Product
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

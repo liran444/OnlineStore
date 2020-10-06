@@ -1,0 +1,101 @@
+<!--HOME PAGE-->
+<div id="container mh-100">
+  <div class="d-flex row ml-auto homeFlex">
+    <div class="col-sm-4 flex-grow-0 homeContainerDiv routerOutletDiv">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="col-sm-4 flex-grow-0 homeContainerDiv">
+      <!-- Description -->
+
+      <div class="w-50 h-50">
+        <hr />
+        <h2>Why you should buy from us:</h2>
+        <hr />
+        <ul>
+          <li>
+            Customer friendly e-commerce website to securely purchase items
+            online.
+          </li>
+          <li>Customers save time and money buying from shopping online.</li>
+          <li>
+            Our store provides exceptional and extraordinary customer service
+            with attention to detail.
+          </li>
+          <li>Items offered at best possible prices.</li>
+          <li>Free gift wrapping & personalised service.</li>
+          <li>Free delivery* to your doorstep by courier.</li>
+        </ul>
+        <div class="customerServiceBadge">
+          <!-- <img width="300px" src="../../../assets/images/certified.png" /> -->
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 flex-grow-0 homeContainerDiv">
+      <!-- Statistics -->
+
+      <div class="w-50 h-50 infoContainer">
+        <hr />
+        <h2>Statistics:</h2>
+        <hr />
+        <!-- <img width="150px" src="../../../assets/images/onlineShop.png" /> -->
+        <ul>
+          <li>
+            Available products in our store:
+            {{ this.productsService.number_of_products }}
+          </li>
+          <li>
+            Number of orders made in our store:
+            {{ this.ordersService.number_of_orders }}
+          </li>
+        </ul>
+
+        <div class="userInfoContainer">
+          <div
+            class="userInfoBlock"
+            *ngIf="
+              this.usersService.loggedInUser?.user_type != 'ADMIN' &&
+              this.usersService.isLoggedIn
+            "
+          >
+            <hr />
+            <h3>Your Activity History:</h3>
+            <hr />
+            <div
+              *ngIf="
+                this.usersService.loggedInUser?.is_checked_out != undefined
+              "
+            >
+              <div *ngIf="this.usersService.loggedInUser?.is_checked_out == 0">
+                <p>
+                  You have an open cart since:
+                  {{ this.usersService.loggedInUser.last_open_cart_date }}
+                </p>
+                <p>
+                  Total Price Is:
+                  {{ this.cartItemsService.totalSum }} NIS
+                </p>
+                <hr />
+              </div>
+
+              <div *ngIf="this.usersService.loggedInUser?.last_order_date">
+                <p>
+                  Your last purchase was made on:
+                  {{ this.usersService.loggedInUser.last_order_date }}
+                </p>
+              </div>
+            </div>
+
+            <div
+              *ngIf="
+                this.usersService.loggedInUser?.is_checked_out == 1 ||
+                this.usersService.loggedInUser?.is_checked_out == undefined
+              "
+            >
+              <p>You have no open cart at the moment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

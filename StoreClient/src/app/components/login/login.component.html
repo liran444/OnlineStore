@@ -1,0 +1,50 @@
+<hr />
+<p>
+  Click
+  <button
+    class="btn btn-primary"
+    (click)="onClickedDisplayRegister()"
+    class="signUpButton"
+  >
+    here
+  </button>
+  to sign up
+</p>
+<hr />
+<router-outlet></router-outlet>
+
+<div class="loginContainer">
+  <form #userLoginForm="ngForm" [formGroup]="loginForm" (submit)="login()">
+    <input
+      type="text"
+      placeholder="Email"
+      name="email"
+      [formControl]="email"
+    /><br />
+
+    <span *ngIf="email.errors?.required && email.touched">Missing Email</span>
+    <span *ngIf="email.errors?.pattern && email.touched">Invalid Email</span>
+    <br />
+
+    <input
+      type="password"
+      placeholder="Password"
+      name="password"
+      [formControl]="password"
+    /><br />
+    <span *ngIf="password.errors?.required && password.touched"
+      >Missing Password</span
+    >
+    <span *ngIf="password.errors?.pattern && password.touched"
+      >Password must contain 4-16 letters or numbers</span
+    >
+    <br />
+
+    <button
+      class="loginButton btn btn-primary"
+      [disabled]="userLoginForm.form.invalid"
+    >
+      Login
+    </button>
+  </form>
+</div>

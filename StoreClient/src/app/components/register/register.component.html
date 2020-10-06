@@ -1,0 +1,79 @@
+<hr />
+<p>
+  Already have an account?
+  <button (click)="onClickedDisplayLogin()" class="loginButton">Log-in</button>
+</p>
+<hr />
+
+<div class="registerContainer">
+  <div *ngIf="!this.isFirstStepDone">
+    <form [formGroup]="stepOneRegisterForm">
+      <input type="text" placeholder="* Social Number" formControlName="social_number" /><br />
+      <span *ngIf="
+          stepOne.social_number.errors?.required &&
+          stepOne.social_number.touched
+        ">
+        Missing Social Number
+      </span>
+      <span *ngIf="
+          stepOne.social_number.errors?.pattern && stepOne.social_number.touched
+        ">Must contain 9 digits</span><br />
+
+      <input type="text" placeholder="* Email" formControlName="email" /><br />
+
+      <span *ngIf="stepOne.email.errors?.required && stepOne.email.touched">Missing Email</span>
+      <span *ngIf="stepOne.email.errors?.pattern && stepOne.email.touched">Invalid Email</span><br />
+
+      <input type="password" placeholder="* Password" formControlName="password" /><br />
+      <span *ngIf="stepOne.password.errors?.required && stepOne.password.touched">Missing password</span>
+      <span *ngIf="stepOne.password.errors?.pattern && stepOne.password.touched">Use between 4-16 characters containing
+        letters or numbers</span><br />
+
+      <input type="password" placeholder="* Confirm Password" formControlName="confirm_password" /><br />
+      <span *ngIf="stepOne.password.valid && stepOne.confirm_password.invalid">Please confirm password</span><br />
+
+      <p>
+        <button (click)="onNextStepClicked()" class="btn btn-primary" [disabled]="stepOneRegisterForm.invalid">
+          Next
+        </button>
+      </p>
+    </form>
+  </div>
+
+  <div *ngIf="this.isFirstStepDone">
+    <form [formGroup]="stepTwoRegisterForm" (submit)="register()">
+      <p>
+        <button (click)="onPreviousStepClicked()" class="btn goBackButton">
+          Go Back
+        </button>
+      </p>
+
+      <input type="text" placeholder="* Firstname" formControlName="firstname" /><br />
+      <span *ngIf="stepTwo.firstname.errors?.required && stepTwo.firstname.touched">Missing Firstname</span>
+      <span *ngIf="stepTwo.firstname.errors?.pattern && stepTwo.firstname.touched">Firstname must contain 2-18
+        characters</span><br />
+
+      <input type="text" placeholder="* Lastname" formControlName="lastname" /><br />
+      <span *ngIf="stepTwo.lastname.errors?.required && stepTwo.lastname.touched">Missing Lastname</span>
+      <span *ngIf="stepTwo.lastname.errors?.pattern && stepTwo.lastname.touched">Lastname must contain 2-18
+        characters</span><br />
+
+      <select class="form-control" id="cities" formControlName="city_id">
+        <option name="city" disabled selected value>* Select an Option</option>
+        <option *ngFor="let item of this.citiesService.cities" value="{{ item.id }}" name="fieldName" ngDefaultControl>
+          {{ item.name }}
+        </option>
+      </select>
+      <br />
+      <span *ngIf="stepTwo.city_id.errors?.required && stepTwo.city_id.touched">Missing City Address</span><br />
+
+      <input type="text" placeholder="* Street Address" formControlName="street" /><br />
+      <span *ngIf="stepTwo.street.errors?.required && stepTwo.street.touched">Missing Street Address</span>
+      <span *ngIf="stepTwo.street.errors?.pattern && stepTwo.street.touched">Invalid Street Address</span><br />
+
+      <button class="registerButton btn btn-primary" [disabled]="stepTwoRegisterForm.invalid">
+        Register
+      </button>
+    </form>
+  </div>
+</div>

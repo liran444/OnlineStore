@@ -1,0 +1,81 @@
+input[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+input {
+  width: 80%;
+  font-size: large;
+  padding: 10px;
+  margin: 12px;
+  border-radius: 25px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: black;
+}
+
+select {
+  width: 80%;
+  height: 40px;
+  font-size: large;
+  display: inline-block;
+  margin: 12px;
+  border-radius: 25px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: 2px solid black;
+  color: black;
+}
+
+input:hover,
+select:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+div {
+  margin: auto;
+  display: block;
+}
+
+form {
+  column-span: all;
+}
+
+.registerContainer {
+  margin-top: 4%;
+}
+
+.registerButton {
+  width: 40%;
+  height: 50px;
+  border-radius: 10px;
+  margin: 30px;
+  font-size: 20px;
+}
+
+input:focus {
+  outline: none;
+}
+
+span {
+  margin: 12px;
+  color: darkred;
+}
+
+.loginButton {
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  color: blue;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.goBackButton {
+  color: red;
+  margin-right: 10px;
+  font-weight: 600;
+}

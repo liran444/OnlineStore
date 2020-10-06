@@ -1,0 +1,66 @@
+input[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+input {
+  width: 80%;
+  font-size: large;
+  padding: 10px;
+  margin: 12px;
+  /* Round corners button */
+  border-radius: 25px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: black;
+}
+
+input:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+div {
+  /* text-align: center; */
+  margin: auto;
+
+  /* catches the full space to the end of the screen */
+  display: block;
+}
+
+form {
+  column-span: all;
+}
+
+.loginContainer {
+  margin-top: 10%;
+}
+
+.loginButton {
+  width: 40%;
+  height: 50px;
+  border-radius: 10px;
+  margin: 30px;
+  font-size: 20px;
+}
+
+input:focus {
+  outline: none;
+}
+
+span {
+  margin: 12px;
+  color: darkred;
+}
+
+.signUpButton {
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  color: blue;
+  font-weight: 600;
+  text-decoration: underline;
+}

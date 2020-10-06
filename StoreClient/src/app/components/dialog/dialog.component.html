@@ -1,0 +1,21 @@
+<mat-card-header>
+  <h1 mat-dialog-title>{{ header }}</h1>
+</mat-card-header>
+<div mat-dialog-content>
+  <span>{{ message }}</span>
+
+  <p *ngIf="fileText" class="text-center">
+    Download your receipt by clickings
+    <a [href]="fileUrl" [download]="fileName">HERE</a>
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button
+    class="btn btn-primary"
+    mat-button
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+  >
+    Close
+  </button>
+</div>

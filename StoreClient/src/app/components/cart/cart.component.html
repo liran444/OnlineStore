@@ -1,0 +1,242 @@
+<div class="notificationInfoContainer">
+  <div class="notificationBlock">
+    <hr />
+    <span class="cartSpanHeader">{{
+      this.usersService.loggedInUser.user_type !== "ADMIN"
+        ? "My Cart:"
+        : "Admin Panel:"
+    }}</span>
+    <button
+      *ngIf="this.usersService.loggedInUser.user_type === 'ADMIN'"
+      class="btn btn-primary"
+      (click)="onAddNewProductClicked()"
+    >
+      Add New Product
+    </button>
+    <hr />
+
+    <div *ngIf="this.usersService.loggedInUser.user_type === 'ADMIN'">
+      <div
+        class="emptyCartDiv"
+        *ngIf="
+          this.usersService.state === 'idle' &&
+          this.productsService.state === 'idle'
+        "
+      >
+        <h3>
+          Click
+          <a routerLink="/shopping/cart">HERE</a>
+          to view all products
+        </h3>
+      </div>
+
+      <div *ngIf="this.productsService.state !== 'idle'">
+        <div>
+          <mat-card>
+            <mat-card-content>
+              <ul>
+                <li *ngFor="let file of files">
+                  <span id="file-label">
+                    {{ file.name }}
+                  </span>
+                  <mat-progress-bar [value]="file.progress"></mat-progress-bar>
+                </li>
+                <br />
+              </ul>
+            </mat-card-content>
+            <mat-card-actions>
+              <mat-icon>file_upload</mat-icon>
+              <button mat-button color="warn" (click)="onUploadImageClicked()">
+                Upload
+              </button>
+            </mat-card-actions>
+          </mat-card>
+          <input
+            type="file"
+            #fileUpload
+            id="fileUpload"
+            name="fileUpload"
+            multiple="multiple"
+            accept="image/*"
+            class="uploadInput"
+          />
+        </div>
+
+        <img
+          *ngIf="this.productsService.product_under_edit.image_file_name"
+          src="http://localhost:3000/uploads/{{
+            this.productsService.product_under_edit.image_file_name
+          }}"
+          width="100"
+          height="100"
+          class="col-auto"
+        />
+        <form [formGroup]="productForm">
+          <span class="panelClass">Name:</span>
+          <input
+            class="panelClass"
+            type="text"
+            placeholder="Enter Name..."
+            formControlName="name"
+            [(ngModel)]="this.productsService.product_under_edit.name"
+          />
+
+          <span class="panelClass">Price:</span>
+          <input
+            class="panelClass"
+            type="number"
+            placeholder="Enter Price..."
+            formControlName="price"
+            [(ngModel)]="this.productsService.product_under_edit.price"
+          />
+
+          <span class="panelClass">Category:</span>
+          <select
+            class="form-control"
+            name="categoriesSelectBox"
+            id="categories"
+            formControlName="category_id"
+            [(ngModel)]="this.productsService.product_under_edit.category_id"
+          >
+            <option name="fieldName" disabled selected value="null">
+              -- select a category --
+            </option>
+            <option
+              *ngFor="let item of this.categoriesService.categories"
+              value="{{ item.id }}"
+              name="fieldName"
+              ngDefaultControl
+            >
+              {{ item.category_name }}
+            </option>
+          </select>
+
+          <button
+            [disabled]="
+              productForm.invalid ||
+              !this.productsService.product_under_edit.image_file_name
+            "
+            (click)="onSaveButtonClicked()"
+            class="btn btn-primary"
+          >
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+    <div *ngIf="this.usersService.loggedInUser.user_type !== 'ADMIN'">
+      <input
+        *ngIf="this.usersService.state === 'ordering'"
+        type="text"
+        placeholder="Search Product..."
+        class="searchInput"
+        [(ngModel)]="subText"
+      />
+
+      <div
+        class="emptyCartDiv"
+        *ngIf="this.cartItemsService.successfulCartItemsRetrieval.length === 0"
+      >
+        <h3>The cart is currently empty</h3>
+        <h3 *ngIf="this.usersService.state === 'idle'">
+          <hr />
+          You may proceed to the
+          <a routerLink="/shopping/cart" class="fa fa-shopping-cart"> shop</a>
+        </h3>
+      </div>
+
+      <div
+        *ngIf="this.cartItemsService.successfulCartItemsRetrieval.length !== 0"
+        class="tableContainer"
+      >
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Name</th>
+              <th>Unit Price</th>
+              <th>Amount</th>
+              <th *ngIf="this.usersService.state === 'shopping'"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let item of this.cartItemsService.successfulCartItemsRetrieval
+              "
+            >
+              <td>
+                <img
+                  src="http://localhost:3000/uploads/{{ item.image_file_name }}"
+                  width="100"
+                  height="100"
+                />
+              </td>
+              <td>
+                <span
+                  class="productSpan"
+                  [innerHTML]="item.name | highlightPipe: subText"
+                ></span>
+              </td>
+              <td>
+                <span class="productSpan">{{ item.price }}</span>
+              </td>
+              <td>
+                <span class="productSpan">{{ item.amount }}</span>
+              </td>
+              <td *ngIf="this.usersService.state === 'shopping'">
+                <button
+                  class="btn removeItemButton"
+                  (click)="onClickedRemoveCartItem(item.product_id)"
+                >
+                  X
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div
+        *ngIf="this.cartItemsService.successfulCartItemsRetrieval.length != 0"
+        class="cartBottomDiv"
+      >
+        <span class="totalPriceSpan"
+          >Total Price: {{ this.cartItemsService.totalSum }} NIS</span
+        >
+
+        <button
+          *ngIf="this.usersService.state === 'shopping'"
+          class="btn redButton"
+          (click)="onClickedEmptyCart()"
+        >
+          Empty Cart
+        </button>
+
+        <button
+          *ngIf="this.usersService.state === 'ordering'"
+          class="btn redButton"
+          (click)="onClickedContinueShopping()"
+        >
+          Cancel
+        </button>
+
+        <button
+          *ngIf="this.usersService.state === 'shopping'"
+          class="btn btn-primary purchaseButton"
+          (click)="onPurchaseClicked()"
+        >
+          Purchase
+        </button>
+
+        <button
+          *ngIf="this.usersService.state === 'idle'"
+          class="btn btn-primary cancelButton"
+          (click)="onClickedContinueShopping()"
+        >
+          Continue Shopping
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
